@@ -1,0 +1,17 @@
+# my_settings file Dont put this on github. 
+
+
+DATABASES ={
+    'default': {
+        'ENGINE': 'mysql.connector.django', 
+        'NAME': 'mydb',
+        'USER': 'master',
+        'PASSWORD': 'pass0000',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+    }
+
+SECRET_KEY = {"asdfsadfsfagkaslasmnf12345"}
+        
+
