@@ -1,4 +1,5 @@
 from django.db import models
+from user.models import UserModel
 
 class ArticleModel (models.Model):
     title = models.CharField(max_length=500)
@@ -20,3 +21,9 @@ class ArticleCategory (models.Model):
     name = models.CharField(max_length=50)
     class Meta:
         db_table = 'ArticleCategory'
+
+class HeartCheck(models.Model):
+    usermodel = models.ForeignKey(UserModel,on_delete=models.CASCADE) 
+    articlemodel = models.ForeignKey(ArticleModel, on_delete=models.CASCADE)
+    class Meta:
+        db_table = 'Heart'
