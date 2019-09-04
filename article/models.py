@@ -25,5 +25,6 @@ class ArticleCategory (models.Model):
 class HeartCheck(models.Model):
     usermodel = models.ForeignKey(UserModel,on_delete=models.CASCADE) 
     articlemodel = models.ForeignKey(ArticleModel, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now=True)
     class Meta:
         db_table = 'Heart'

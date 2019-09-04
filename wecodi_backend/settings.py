@@ -26,7 +26,7 @@ SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*", "localhost:8000", "10.58.7.255"]
+ALLOWED_HOSTS = ["*", "localhost:8000", "10.58.7.255", "0.0.0.0:8001"]
 
 
 # Application definition
@@ -51,6 +51,7 @@ MIDDLEWARE = [
     #'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'wecodi_backend.urls'
