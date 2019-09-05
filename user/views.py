@@ -2,7 +2,7 @@ import json
 import bcrypt
 import jwt
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .models import Users
 
 class SignUpView(View):
@@ -18,7 +18,11 @@ class SignUpView(View):
                 email=data["email"]
                 )
         user.save()
-        return JsonResponse({"message":"SUCCESS"}, status=200)
+
+        try: 
+            return JsonResponse({"message":"SUCCESS"}, status=200)
+        except:
+            return JsonResponse({"message": ""}, status=400)
 
     def get(self, request):
         user = list(Users.objects.values())
@@ -26,4 +30,9 @@ class SignUpView(View):
 
 class LogInView(View):
     def post(self, request):
+        data =json.loads(request.body)
+        email=data["email"]
+        password=data["password"]
         
+        if
+
