@@ -41,22 +41,19 @@ class SignUpView(View):
 class LogInView(View):
     def post(self, request):
         data =json.loads(request.body)
-        user_email=data["email"]
         password=data["password"]
-        
-        print(user_email)
-        if Users.objects.filter(email = user_email).exists():
-            exist_user = Users.objects.get(email = user_email)
-        else:
+        try: 
+            exist_user = Users.objects.get(email = data["email"])
+
+            if bcrypt.checkpw(password.encode("UTF-8"), exist_user.password.encode("UTF-8")):
+                payload = {
+                    "id": exist_user.id,
+                }
+                encoded = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+
+                return JsonResponse({"access_token": encoded.decode("UTF-8")}, status=200)
+            else:
+                return JsonResponse({"message": "INVALID_PASSWORD"}, status=400)
+        except Users.DoesNotExist:
             return JsonResponse({"message": "INVALID_EMAIL_ADDRESS"}, status=400)
-
-        if bcrypt.checkpw(password.encode("UTF-8"), exist_user.password.encode("UTF-8")):
-            payload = {
-                "email": user_email,
-                "exp" : datetime.utcnow() + timedelta(weeks=1)
-            }
-            encoded = jwt.encode(payload, "SECRET_KEY", algorithm="HS256")
-
-            return JasonResponse({"access_token": token.decode("UTF-8")}, status=200)
-        else:
-            return JsonResponse({"message": "INVALID_PASSWORD"}, status=400)
+    
