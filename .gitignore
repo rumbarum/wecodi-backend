@@ -3,4 +3,7 @@ my_settings.py
 
 #this is testing directory
 user
+
+*.pyc
+
 ..Backup
