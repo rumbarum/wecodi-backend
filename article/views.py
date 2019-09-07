@@ -167,4 +167,4 @@ class HeartCheckView(View):
                 HeartCheck(usermodel_id=user_id, articlemodel_id=article_id).save()
                 return JsonResponse({"HEART_CHECK":"HEART_ON", "HEART_COUNT":len(article)}, status=200)
         else:
-            return JsonResponse({"RESULT":"NO_ARTICLE"}, status=400) 
+            return JsonResponse({"RESULT":"NO_ARTICLE"}, status=400)
