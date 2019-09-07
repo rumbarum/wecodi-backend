@@ -15,16 +15,11 @@ class SignUpView(View):
         try:
             data = json.loads(request.body)
        
-            print(data)
-            
             if Users.objects.filter(email = data["email"]).exists():
                 return JsonResponse({"message": "EMAIL_ALREADY_EXISTS"}, status=400)
             else:
-                print("else")
                 password= bytes(data["password"], "utf-8")
                 hashed_password = bcrypt.hashpw(password, bcrypt.gensalt())
-
-                print(hashed_password)
 
                 user = Users(
                     first_name=data["first_name"], 
@@ -42,13 +37,12 @@ class LogInView(View):
     def post(self, request):
         data =json.loads(request.body)
         password=data["password"]
+
         try: 
             exist_user = Users.objects.get(email = data["email"])
 
             if bcrypt.checkpw(password.encode("UTF-8"), exist_user.password.encode("UTF-8")):
-                payload = {
-                    "id": exist_user.id,
-                }
+                payload = { "id": exist_user.id,}
                 encoded = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
 
                 return JsonResponse({"access_token": encoded.decode("UTF-8")}, status=200)
