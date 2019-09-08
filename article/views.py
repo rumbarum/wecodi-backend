@@ -148,26 +148,31 @@ class HeartCheckView(View):
     @login_required
     def get(self,request, article_id):
         user_id = request.user.id
+        article = ArticleModel.objects.filter(id=article_id)
         target = HeartCheck.objects.filter(articlemodel_id=article_id)
-        heartcount = len(target)
-
-        if target.filter(users_id=user_id).exists():
-            return JsonResponse({"HEART_CHECK":"HEART_ON", "HEART_COUNT":heartcount}, status=200)
-        else:
-            return JsonResponse({"HEART_CHECK":"HEART_OFF", "HEART_COUNT":heartcount}, status=200) 
+        heart = target.filter(users_id=user_id)
+	
+        if article.exists():
+            if target.filter(users_id=user_id).exists():
+                return JsonResponse({"HEART_CHECK":"HEART_ON", "HEART_COUNT":len(target)}, status=200)
+            else:
+                 return JsonResponse({"HEART_CHECK":"HEART_OFF", "HEART_COUNT":len(target)}, status=200) 
+        else: 
+            return JsonResponse({"RESULT":"NO_ARTICLE"}, status=400) 
 
     @login_required
     def post(self, request, article_id ): 
         user_id = request.user.id
-        article = HeartCheck.objects.filter(articlemodel_id=article_id)
-        heart = article.filter(users_id=user_id) 
+        article = ArticleModel.objects.filter(id=article_id)
+        target = HeartCheck.objects.filter(articlemodel_id=article_id)
+        target_user = HeartCheck.objects.filter(users_id=user_id) 
 
         if article.exists():
-            if heart.exists():
-                heart.delete()  
-                return JsonResponse ({"HEART_CHECK":"HEART_OFF", "HEART_COUNT":len(article)}, status=200)
+            if target_user.exists():
+                HeartCheck.objects.get(users_id=user_id).delete()  
+                return JsonResponse ({"HEART_CHECK":"HEART_OFF", "HEART_COUNT":len(target)}, status=200)
             else: 
                 HeartCheck(users_id=user_id, articlemodel_id=article_id).save()
-                return JsonResponse({"HEART_CHECK":"HEART_ON", "HEART_COUNT":len(article)}, status=200)
+                return JsonResponse({"HEART_CHECK":"HEART_ON", "HEART_COUNT":len(target)}, status=200)
         else:
             return JsonResponse({"RESULT":"NO_ARTICLE"}, status=400) 
