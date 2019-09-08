@@ -165,11 +165,11 @@ class HeartCheckView(View):
         user_id = request.user.id
         article = ArticleModel.objects.filter(id=article_id)
         target = HeartCheck.objects.filter(articlemodel_id=article_id)
-        target_user = HeartCheck.objects.filter(users_id=user_id) 
+        del_target = HeartCheck.objects.filter(articlemodel_id=article_id, users_id=user_id)
 
         if article.exists():
-            if target_user.exists():
-                HeartCheck.objects.get(users_id=user_id).delete()  
+            if del_target.exists():
+                del_target[0].delete()  
                 return JsonResponse ({"HEART_CHECK":"HEART_OFF", "HEART_COUNT":len(target)}, status=200)
             else: 
                 HeartCheck(users_id=user_id, articlemodel_id=article_id).save()

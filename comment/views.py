@@ -51,6 +51,8 @@ class CommentUpdateView(View):
                 return JsonResponse({"RESULT":"UPDATED","DATA":val}, status=200)
             else: 
                 HttpResponse(status=404)
+        except ValueError:
+            return Jsonresponse({"RESULT":"WRONG_COMMENT_ID"}, status=400)
         except AttributeError:
             return JsonResponse({"RESULT":"WRONG_INPUT"}, status=400)
 
@@ -91,5 +93,7 @@ class CommentDeleteView(View):
                 return JsonResponse({"RESULT":"NO_ARTICLE"}, status=400)
         except AttributeError: 
             return JsonResponse({"RRESULT":"WRONG_INPUT"}, status=400)
+        except ValueError:
+            return JsonResponse({"RESULT":"WRONG_COMMENT_ID"}, status=400)
         except CommentModel.DoesNotExist:
             return JsonResponse({"RESULT":"NO_COMMENT"}, status=400)
