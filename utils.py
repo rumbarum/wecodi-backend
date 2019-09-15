@@ -7,7 +7,7 @@ from user.models import Users
 
 def login_required(func):
 
-    def wrappor(self,request, *args, **kwargs):
+    def wrapper(self,request, *args, **kwargs):
         if 'Authorization' not in request.headers:
             return JsonResponse({"RESULT":"NO TOKEN"}, status=400)
 
@@ -25,4 +25,4 @@ def login_required(func):
 
         return func(self,request, *args, **kwargs)
 
-    return wrappor 
+    return wrapper 

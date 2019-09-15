@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'article',
     'user', 
     'comment',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
