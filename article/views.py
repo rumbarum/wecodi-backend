@@ -7,7 +7,6 @@ import random
 
 class ArticleAllCategoryView(View): 
     
-    @login_required 
     def get(self, request): 
         try:
             offset = int(request.GET.get('offset','0'))
@@ -34,7 +33,6 @@ class ArticleAllCategoryView(View):
 
 class ArticleCategoryView(View):    
     
-    @login_required
     def get(self, request, category_id):
         try:
             offset = int(request.GET.get('offset','0'))
@@ -62,7 +60,7 @@ class ArticleCategoryView(View):
             return JsonResponse({"RESULT":"WRONG_INPUT"}, status=400)
 
 class ArticleDetailView(View):
-
+    
     @login_required
     def get(self, request, article_id):
         try:
@@ -85,7 +83,6 @@ class ArticleDetailView(View):
 
 class ArticleRecommendView(View):
 
-    @login_required 
     def get(self, request, article_id):
         try:
             quantity = int(request.GET.get("quantity","3"))
@@ -116,7 +113,6 @@ class ArticleRecommendView(View):
 
 class ArticleSortView(View):
     
-    @login_required
     def get(self, request, category_id, styletag_id):
         try:
             offset = int(request.GET.get('offset','0'))
