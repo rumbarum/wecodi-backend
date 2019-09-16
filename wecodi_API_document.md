@@ -105,7 +105,7 @@
 
 | Title            | Getting All Comment on Article                               |
 | ---------------- | ------------------------------------------------------------ |
-| URL              | /commnet/list/:article_id                                    |
+| URL              | /comment/list/:article_id                                    |
 | Method           | `GET`                                                        |
 | URL Params       | **Required:** `article_id=[integer]`                         |
 | Data Params      | None                                                         |
