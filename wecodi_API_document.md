@@ -118,7 +118,7 @@
 
 | Title            | Adding Comment on Article                                    |
 | ---------------- | ------------------------------------------------------------ |
-| URL              | /commnet/add/:article_id                                     |
+| URL              | /comment/add/:article_id                                     |
 | Method           | `POST`                                                       |
 | URL Params       | **Required:** `article_id=[integer]`                         |
 | Data Params      | {<br />comment:[string]<br />}                               |
@@ -131,7 +131,7 @@
 
 | Title            | Updating Comment on Article                                  |
 | ---------------- | ------------------------------------------------------------ |
-| URL              | /commnet/update/:article_id                                  |
+| URL              | /comment/update/:article_id                                  |
 | Method           | `POST`                                                       |
 | URL Params       | **Required:** `article_id=[integer]`                         |
 | Data Params      | {<br />comment:[string],<br />comment_id: [integer]<br />}   |
@@ -144,7 +144,7 @@
 
 | Title            | Deleting Comment on Article                                  |
 | ---------------- | ------------------------------------------------------------ |
-| URL              | /commnet/delete/:article_id                                  |
+| URL              | /comment/delete/:article_id                                  |
 | Method           | `POST`                                                       |
 | URL Params       | **Required:** `article_id=[integer]`                         |
 | Data Params      | {<br />comment_id: [integer]<br />}                          |
