@@ -5,11 +5,16 @@ from .models import CommentModel
 import json
 from utils import login_required
 
-class CommentAddView(View):
+class CommentView(View):
+
+    def get()...
+
+    def delete()...
 
     @login_required
     def post(self, request, article_id):
         req = json.loads(request.body)
+        comment_id = request.GET.get("comment_id", None)  
         user_id = request.user.id 
 
         try:
